@@ -23,7 +23,28 @@ const T = {
     bg: "#f4f4f2", ink: "#16181b", muted: "#62666c", acc: "#d63a2f", soft: "#e8e8e4", dark: "#121417",
     kicker: "Oto Servis", cta: "Randevu Al", form: "servis", h_serv: "Hizmetler", h_gal: "Servisimiz",
     serv: ["Motor Yağı Değişimi", "Filtre Değişimi", "Periyodik Bakım", "Fren Kontrolü"] },
+  spor: { fonts: "Anton&family=Inter:wght@400;600;700", disp: "Anton,Impact,sans-serif", body: "Inter,system-ui,sans-serif",
+    bg: "#f5f5f3", ink: "#141414", muted: "#5f5f5f", acc: "#e8590c", soft: "#ebebe6", dark: "#111",
+    kicker: "Spor & Pilates", cta: "Deneme Dersi Al", form: "ders", h_serv: "Dersler", h_gal: "Stüdyomuz",
+    serv: ["Reformer Pilates", "Mat Pilates", "Fitness", "Kişisel Antrenman", "Grup Dersleri"] },
+  mimarlik: { fonts: "Italiana&family=Work+Sans:wght@400;500;600", disp: "Italiana,Georgia,serif", body: "'Work Sans',system-ui,sans-serif",
+    bg: "#f4f2ee", ink: "#22251f", muted: "#6d6f68", acc: "#6b7a5a", soft: "#e7e4dc", dark: "#1d1f1a",
+    kicker: "İç Mimarlık", cta: "Proje Görüşmesi", form: "proje", h_serv: "Neler Yapıyoruz", h_gal: "Projelerimiz",
+    serv: ["Konut İç Mimarlığı", "Ofis & Mağaza", "Renovasyon", "Mutfak & Banyo", "Anahtar Teslim Uygulama"] },
+  hukuk: { fonts: "Libre+Baskerville:wght@400;700&family=Source+Sans+3:wght@400;600", disp: "'Libre Baskerville',Georgia,serif", body: "'Source Sans 3',system-ui,sans-serif",
+    bg: "#f7f6f2", ink: "#1f2a37", muted: "#5b6573", acc: "#8a6d3b", soft: "#ecebe4", dark: "#17202b",
+    kicker: "Avukatlık & Arabuluculuk", cta: "Ön Görüşme", form: "gorusme", h_serv: "Çalışma Alanları", h_gal: "Büromuz",
+    serv: ["Aile Hukuku", "İş Hukuku", "Gayrimenkul & Kira", "İcra & Alacak", "Arabuluculuk"] },
+  klinik: { fonts: "Marcellus&family=Nunito+Sans:wght@400;600;700", disp: "Marcellus,Georgia,serif", body: "'Nunito Sans',system-ui,sans-serif",
+    bg: "#f7f8f7", ink: "#1e2b2a", muted: "#61706e", acc: "#2f8f83", soft: "#e5f1ef", dark: "#152422",
+    kicker: "Güzellik Merkezi", cta: "Randevu Al", form: "randevu", h_serv: "Uygulamalar", h_gal: "Merkezimiz",
+    serv: ["Lazer Epilasyon", "Cilt Bakımı", "Bölgesel İncelme", "Kaş & Kirpik"] },
+  egitim: { fonts: "Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700", disp: "Fredoka,system-ui,sans-serif", body: "Nunito,system-ui,sans-serif",
+    bg: "#f6f7fb", ink: "#1b2240", muted: "#5d6482", acc: "#3b5bdb", soft: "#e7ebfb", dark: "#141a33",
+    kicker: "Kurs & Etüt", cta: "Ön Kayıt", form: "kayit", h_serv: "Programlar", h_gal: "Kurumumuz",
+    serv: ["LGS Hazırlık", "YKS Hazırlık", "Etüt & Ödev Takibi", "Birebir Ders"] },
 };
+const LAW = d => d.sektor === "hukuk";
 const segs = location.pathname.split("/").filter(Boolean);
 const slug = segs[segs.length - 1] || "";
 const base = "/" + segs.slice(0, -1).map(s => s + "/").join("");
@@ -51,8 +72,12 @@ const formFields = {
   rezervasyon: `<label>Giriş<input id="f1" type="date"></label><label>Çıkış<input id="f2" type="date"></label><label>Kişi sayısı<select id="f3"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5+</option></select></label><label>Adınız<input id="f4" placeholder="Adınız"></label>`,
   tarih: `<label>Organizasyon<select id="f1">${services.map(s => `<option>${esc(s.ad)}</option>`).join("")}</select></label><label>Tarih<input id="f2" type="date"></label><label>Davetli sayısı<input id="f3" type="number" min="10" step="10" value="150"></label><label>Adınız<input id="f4" placeholder="Adınız"></label>`,
   servis: `<label>İşlem<select id="f1">${services.map(s => `<option>${esc(s.ad)}</option>`).join("")}</select></label><label>Araç<input id="f2" placeholder="Örn. 2018 Fiat Egea"></label><label>Gün<input id="f3" type="date"></label><label>Adınız<input id="f4" placeholder="Adınız"></label>`,
+  ders: `<label>Ders<select id="f1">${services.map(s => `<option>${esc(s.ad)}</option>`).join("")}</select></label><label>Gün<input id="f2" type="date"></label><label>Saat<input id="f3" type="time" value="18:00"></label><label>Adınız<input id="f4" placeholder="Adınız"></label>`,
+  proje: `<label>Proje<select id="f1">${services.map(s => `<option>${esc(s.ad)}</option>`).join("")}</select></label><label>Alan (m²)<input id="f2" type="number" min="10" value="120"></label><label>İlçe<input id="f3" placeholder="Örn. Bornova"></label><label>Adınız<input id="f4" placeholder="Adınız"></label>`,
+  gorusme: `<label>Konu<select id="f1">${services.map(s => `<option>${esc(s.ad)}</option>`).join("")}</select></label><label>Uygun gün<input id="f2" type="date"></label><label>Saat<input id="f3" type="time" value="11:00"></label><label>Adınız<input id="f4" placeholder="Adınız"></label>`,
+  kayit: `<label>Program<select id="f1">${services.map(s => `<option>${esc(s.ad)}</option>`).join("")}</select></label><label>Öğrencinin sınıfı<input id="f2" placeholder="Örn. 8. sınıf"></label><label>Veli telefonu<input id="f3" placeholder="05xx"></label><label>Veli adı<input id="f4" placeholder="Adınız"></label>`,
 }[t.form];
-const formLabels = { randevu: ["Hizmet", "Gün", "Saat", "Ad"], siparis: ["Sipariş", "Tür", "Saat", "Ad"], rezervasyon: ["Giriş", "Çıkış", "Kişi", "Ad"], tarih: ["Organizasyon", "Tarih", "Davetli", "Ad"], servis: ["İşlem", "Araç", "Gün", "Ad"] }[t.form];
+const formLabels = { ders: ["Ders", "Gün", "Saat", "Ad"], proje: ["Proje", "Alan m²", "İlçe", "Ad"], gorusme: ["Konu", "Gün", "Saat", "Ad"], kayit: ["Program", "Sınıf", "Veli tel", "Veli adı"], randevu: ["Hizmet", "Gün", "Saat", "Ad"], siparis: ["Sipariş", "Tür", "Saat", "Ad"], rezervasyon: ["Giriş", "Çıkış", "Kişi", "Ad"], tarih: ["Organizasyon", "Tarih", "Davetli", "Ad"], servis: ["İşlem", "Araç", "Gün", "Ad"] }[t.form];
 
 const groups = {};
 services.forEach(s => { const g = s.not && s.not.length < 25 ? s.not : "Menü"; (groups[g] = groups[g] || []).push(s); });
@@ -126,7 +151,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.75);padding:34px 0;font-si
 <h1>${esc(d.ad)}</h1>
 <p>${esc(d.slogan || "")}</p>
 <div class="ctas"><a class="btn" href="#form">${esc(t.cta)}</a><a class="btn line" href="${tel}">📞 ${esc(d.telefon || "")}</a></div>
-<div class="badges"><span class="badge"><b>★ ${esc(d.puan || "")}</b> · ${esc(d.yorum || "")} Google yorumu</span>${todayRow ? `<span class="badge">Bugün ${esc(todayRow[1])}</span>` : ""}<span class="badge">📍 ${esc(d.ilce || "İzmir")}</span></div>
+<div class="badges">${LAW(d) ? "" : `<span class="badge"><b>★ ${esc(d.puan || "")}</b> · ${esc(d.yorum || "")} Google yorumu</span>`}${todayRow ? `<span class="badge">Bugün ${esc(todayRow[1])}</span>` : ""}<span class="badge">📍 ${esc(d.ilce || "İzmir")}</span></div>
 </div></section>
 
 <section id="hizmet"><div class="w"><div class="kick">${esc(t.kicker)}</div><h2>${esc(t.h_serv)}</h2><p class="sub">${hasPrices ? "Fiyatlar Google'daki menü fotoğrafınızdan alındı; yayından önce güncel menünüzle değiştirilir." : "Detay ve fiyat için bize yazın, hemen dönelim."}</p>${servHtml}
