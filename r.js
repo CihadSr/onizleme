@@ -54,8 +54,10 @@ const formFields = {
 }[t.form];
 const formLabels = { randevu: ["Hizmet", "Gün", "Saat", "Ad"], siparis: ["Sipariş", "Tür", "Saat", "Ad"], rezervasyon: ["Giriş", "Çıkış", "Kişi", "Ad"], tarih: ["Organizasyon", "Tarih", "Davetli", "Ad"], servis: ["İşlem", "Araç", "Gün", "Ad"] }[t.form];
 
+const groups = {};
+services.forEach(s => { const g = s.not && s.not.length < 25 ? s.not : "Menü"; (groups[g] = groups[g] || []).push(s); });
 const servHtml = hasPrices
-  ? `<div class="menu">${services.map(s => `<div class="mi"><span class="mn">${esc(s.ad)}${s.not ? `<small>${esc(s.not)}</small>` : ""}</span><span class="dots"></span><span class="mp">${esc(s.fiyat)}</span></div>`).join("")}</div>`
+  ? `<div class="mgrid">${Object.entries(groups).map(([g, items]) => `<div class="menu"><h3 class="mg">${esc(g)}</h3>${items.map(s => `<div class="mi"><span class="mn">${esc(s.ad)}</span><span class="dots"></span><span class="mp">${esc(s.fiyat)}</span></div>`).join("")}</div>`).join("")}</div>`
   : `<div class="tiles">${services.map((s, i) => `<div class="tile">${fotos[i + 1] ? img(fotos[i + 1], "", s.ad) : ""}<span>${esc(s.ad)}</span></div>`).join("")}</div>`;
 
 const html = `<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -83,7 +85,8 @@ h1,h2,h3{font-family:var(--disp);line-height:1.05;margin:0;text-wrap:balance}h2{
 .badge{background:rgba(255,255,255,.14);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:7px 14px;font-size:14px}
 .badge b{color:#ffd166}
 section{padding:84px 0}.alt{background:var(--soft)}.sub{color:var(--mu);margin:0 0 34px;max-width:60ch}
-.menu{display:grid;gap:4px;max-width:760px}.mi{display:flex;align-items:baseline;gap:10px;padding:12px 0;border-bottom:1px solid rgba(0,0,0,.08);font-size:18px}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:12px 48px;align-items:start}.mg{font-size:26px;color:var(--acc);margin:18px 0 4px}
+.menu{display:grid;gap:2px}.mi{display:flex;align-items:baseline;gap:10px;padding:12px 0;border-bottom:1px solid rgba(0,0,0,.08);font-size:18px}
 .mn{font-weight:600}.mn small{display:block;font-weight:400;color:var(--mu);font-size:14px}.dots{flex:1;border-bottom:2px dotted rgba(0,0,0,.18);transform:translateY(-4px)}.mp{font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums;white-space:nowrap}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px}
 .tile{position:relative;border-radius:18px;overflow:hidden;min-height:150px;background:var(--dark);color:#fff;display:flex;align-items:flex-end}
