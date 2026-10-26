@@ -30,6 +30,7 @@ const p={...PRESETS[d.sektor]}; if(d.renk) p.accent=d.renk;
 const services=d.hizmetler?.length?d.hizmetler:p.services;
 const phoneDigits=(d.telefon||'').replace(/[^0-9]/g,'').replace(/^0/,'90').replace(/^(?!90)/,'90');
 const tel='tel:+'+phoneDigits;
+const mob=/^905/.test(phoneDigits);
 const wa=/^905/.test(phoneDigits)?'https://wa.me/'+phoneDigits+'?text='+encodeURIComponent('Merhaba, web sitenizden yazıyorum.'):tel;
 const maps=d.maps_url||('https://www.google.com/maps/search/'+encodeURIComponent(d.ad+' '+(d.ilce||'')+' İzmir'));
 const hours=d.saatler||[]; const reviews=d.yorumlar||[];
@@ -78,13 +79,13 @@ footer{background:var(--d);color:#cfd3d8;padding:36px 0;font-size:14px}footer .w
 <div class="preview">Bu sayfa ${esc(d.ad)} için hazırlanmış bir ön izlemedir · Coodexe</div>
 <header class="bar"><div class="w"><a class="brand" href="#">${esc(d.ad)}</a>
 <nav class="nav"><a href="#hizmetler">Hizmetler</a>${reviews.length ? '<a href="#yorumlar">Yorumlar</a>' : ""}<a href="#iletisim">İletişim</a></nav>
-<a class="btn" href="${wa}">${esc(p.cta)}</a></div></header>
+<a class="btn" href="${wa}">${mob ? "💬 WhatsApp" : "📞 Ara"}</a></div></header>
 <main>
 <section class="hero"><div class="w">
 <div class="kick">${esc(p.kicker)} · ${esc(d.ilce || "İzmir")}</div>
 <h1>${esc(d.slogan || p.hero)}</h1>
-<p class="lead">${esc(d.aciklama || `${d.ad} · ${d.ilce ? d.ilce + ", " : ""}İzmir. Bilgi almak ve randevu için bize WhatsApp'tan yazın ya da hemen arayın.`)}</p>
-<div class="ctas"><a class="btn" href="${wa}">💬 ${esc(p.cta)}</a><a class="btn ghost" href="${tel}">📞 ${esc(d.telefon || "Ara")}</a></div>
+<p class="lead">${esc(d.aciklama || `${d.ad} · ${d.ilce ? d.ilce + ", " : ""}İzmir. ${mob ? "Bilgi almak için bize WhatsApp'tan yazın ya da hemen arayın." : "Bilgi almak için hemen arayın."}`)}</p>
+<div class="ctas"><a class="btn" href="${wa}">${mob ? "💬 " + esc(p.cta) : "📞 Hemen Ara"}</a><a class="btn ghost" href="${tel}">📞 ${esc(d.telefon || "Ara")}</a></div>
 <div class="chips">${d.puan ? `<span class="chip"><span class="stars">★</span> ${esc(d.puan)} Google puanı${d.yorum ? ` · ${esc(d.yorum)} yorum` : ""}</span>` : ""}<span class="chip">📍 ${esc(d.adres || d.ilce || "İzmir")}</span></div>
 </div></section>
 <section id="hizmetler"><div class="w"><h2>Hizmetlerimiz</h2><p class="sub">Detay ve fiyat için bize yazın, hızlıca dönüş yapalım.</p>
@@ -92,14 +93,14 @@ footer{background:var(--d);color:#cfd3d8;padding:36px 0;font-size:14px}footer .w
 ${reviews.length ? `<section id="yorumlar" class="alt"><div class="w"><h2>Müşterilerimiz ne diyor?</h2><p class="sub">Google'daki yorumlardan.</p><div class="grid">${reviews.map(r => `<div class="card rev"><div class="stars">★★★★★</div><p>“${esc(r.metin)}”</p><b>${esc(r.ad)}</b></div>`).join("")}</div></div></section>` : ""}
 <section id="iletisim"><div class="w"><h2>İletişim</h2><p class="sub">${esc(d.adres || d.ilce || "İzmir")}</p>
 <div class="info"><div>
-<p><a class="btn" href="${wa}">💬 WhatsApp</a> &nbsp; <a class="btn ghost" href="${tel}">📞 ${esc(d.telefon || "")}</a></p>
+<p>${mob ? `<a class="btn" href="${wa}">💬 WhatsApp</a> &nbsp; ` : ""}<a class="btn ghost" href="${tel}">📞 ${esc(d.telefon || "")}</a></p>
 ${hours.length ? `<div class="hours">${hours.map(h => `<div><span>${esc(h[0])}</span><span>${esc(h[1])}</span></div>`).join("")}</div>` : ""}
 <p><a href="${esc(maps)}" target="_blank" rel="noopener">Google Haritalar'da aç →</a></p></div>
 <iframe class="map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${encodeURIComponent(d.ad + " " + (d.adres || d.ilce || "") + " İzmir")}&output=embed"></iframe>
 </div></div></section>
 </main>
 <footer><div class="w"><span>© ${new Date().getFullYear()} ${esc(d.ad)}</span><span>${esc(d.adres || d.ilce || "İzmir")}</span></div></footer>
-<a class="fab" href="${wa}" aria-label="WhatsApp ile yazın"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.6-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 .9c.3.1.5.2.5.3.1.2.1.8-.2 1.3z"/></svg></a>
+<a class="fab" ${mob ? "" : "hidden"} href="${wa}" aria-label="WhatsApp ile yazın"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.6-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 .9c.3.1.5.2.5.3.1.2.1.8-.2 1.3z"/></svg></a>
 </body></html>`;
 document.open(); document.write(html); document.close();
 })();
