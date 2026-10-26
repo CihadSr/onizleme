@@ -76,8 +76,8 @@ h1,h2,h3{font-family:var(--disp);line-height:1.05;margin:0;text-wrap:balance}h2{
 .brand{font:700 22px var(--disp);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .hero{position:relative;min-height:min(92vh,760px);display:flex;align-items:flex-end;color:#fff;background:var(--dark)}
 .hero .bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,.15) 35%,rgba(0,0,0,.78) 100%)}
-.hero .w{position:relative;z-index:2;padding-bottom:56px;padding-top:120px;width:100%}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.45) 40%,rgba(0,0,0,.88) 100%)}
+.hero .w{position:relative;z-index:2;text-shadow:0 2px 18px rgba(0,0,0,.55);padding-bottom:56px;padding-top:120px;width:100%}
 .hero .kick{color:#fff;opacity:.9}.hero h1{font-size:clamp(46px,9vw,104px);margin:12px 0 14px}
 .hero p{max-width:640px;font-size:clamp(17px,2.3vw,21px);margin:0 0 26px;opacity:.95}
 .ctas{display:flex;flex-wrap:wrap;gap:12px}
