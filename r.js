@@ -122,7 +122,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.75);padding:34px 0;font-si
 </style></head><body>
 <header class="nav"><div class="w"><span class="brand">${esc(d.ad)}</span><a class="btn" href="#form">${esc(t.cta)}</a></div></header>
 <section class="hero" style="padding:0">${fotos[0] ? img(fotos[0], "bgimg", d.ad) : ""}
-<div class="w fade"><div class="kick">${esc(d.kategori || t.kicker)} · ${esc(d.ilce || "İzmir")}</div>
+<div class="w"><div class="kick">${esc(d.kategori || t.kicker)} · ${esc(d.ilce || "İzmir")}</div>
 <h1>${esc(d.ad)}</h1>
 <p>${esc(d.slogan || "")}</p>
 <div class="ctas"><a class="btn" href="#form">${esc(t.cta)}</a><a class="btn line" href="${tel}">📞 ${esc(d.telefon || "")}</a></div>
