@@ -42,7 +42,7 @@ const hasPrices = services.some(s => s.fiyat);
 const days = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
 const today = days[new Date().getDay()];
 const todayRow = hours.find(h => (h[0] || "").toLocaleLowerCase("tr").startsWith(today.toLocaleLowerCase("tr")));
-const img = (u, cls = "", alt = "") => `<img class="${cls}" src="${esc(u)}" alt="${esc(alt)}" loading="lazy" referrerpolicy="no-referrer">`;
+const img = (u, cls = "", alt = "") => `<img class="${cls}" src="${esc(u)}" alt="${esc(alt)}" ${cls==="bgimg"?"fetchpriority=\"high\"":"loading=\"lazy\""} referrerpolicy="no-referrer">`;
 const stars = n => "★★★★★".slice(0, Math.round(n || 5));
 const addr = d.adres || (d.ilce ? d.ilce + ", İzmir" : "İzmir");
 const formFields = {
@@ -58,7 +58,7 @@ const groups = {};
 services.forEach(s => { const g = s.not && s.not.length < 25 ? s.not : "Menü"; (groups[g] = groups[g] || []).push(s); });
 const servHtml = hasPrices
   ? `<div class="mgrid">${Object.entries(groups).map(([g, items]) => `<div class="menu"><h3 class="mg">${esc(g)}</h3>${items.map(s => `<div class="mi"><span class="mn">${esc(s.ad)}</span><span class="dots"></span><span class="mp">${esc(s.fiyat)}</span></div>`).join("")}</div>`).join("")}</div>`
-  : `<div class="tiles">${services.map((s, i) => `<div class="tile">${fotos[i + 1] ? img(fotos[i + 1], "", s.ad) : ""}<span>${esc(s.ad)}</span></div>`).join("")}</div>`;
+  : `<div class="tiles">${services.map((s, i) => `<div class="tile"><span>${esc(s.ad)}</span></div>`).join("")}</div>`;
 
 const html = `<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(d.ad)} | ${esc(d.ilce || "İzmir")}</title><meta name="robots" content="noindex">
@@ -89,7 +89,7 @@ section{padding:84px 0}.alt{background:var(--soft)}.sub{color:var(--mu);margin:0
 .menu{display:grid;gap:2px}.mi{display:flex;align-items:baseline;gap:10px;padding:12px 0;border-bottom:1px solid rgba(0,0,0,.08);font-size:18px}
 .mn{font-weight:600}.mn small{display:block;font-weight:400;color:var(--mu);font-size:14px}.dots{flex:1;border-bottom:2px dotted rgba(0,0,0,.18);transform:translateY(-4px)}.mp{font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums;white-space:nowrap}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px}
-.tile{position:relative;border-radius:18px;overflow:hidden;min-height:150px;background:var(--dark);color:#fff;display:flex;align-items:flex-end}
+.tile{position:relative;border-radius:18px;overflow:hidden;min-height:110px;background:var(--dark);color:#fff;display:flex;align-items:flex-end;border-left:6px solid var(--acc)}
 .tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72}
 .tile span{position:relative;padding:18px;font:700 22px var(--disp)}
 .gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:10px}
@@ -117,7 +117,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.75);padding:34px 0;font-si
 .own .w{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0}
 .own p{margin:0;font-size:14px;line-height:1.35}.own b{color:#7fe0b4}.own a{background:#25d366;color:#06301b;font-weight:700;text-decoration:none;padding:10px 16px;border-radius:999px;white-space:nowrap;font-size:14px}
 .lb{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:60;padding:20px}.lb.on{display:flex}.lb img{max-height:90vh;border-radius:12px}
-.fade{animation:fu .8s ease both}@keyframes fu{from{transform:translateY(14px);opacity:.001}to{transform:none;opacity:1}}
+.fade{animation:fu .5s ease both}@keyframes fu{from{transform:translateY(14px);opacity:.001}to{transform:none;opacity:1}}
 @media(prefers-reduced-motion:reduce){.fade{animation:none}}
 </style></head><body>
 <header class="nav"><div class="w"><span class="brand">${esc(d.ad)}</span><a class="btn" href="#form">${esc(t.cta)}</a></div></header>
