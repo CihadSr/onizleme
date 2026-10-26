@@ -27,7 +27,7 @@ const T = {
 const segs = location.pathname.split("/").filter(Boolean);
 const slug = segs[segs.length - 1] || "";
 const base = "/" + segs.slice(0, -1).map(s => s + "/").join("");
-let d; try { d = await (await fetch(base + "d/" + slug + ".json")).json(); } catch (e) { location.href = base; return; }
+let d; try { d = await (await fetch(base + "d/" + slug + ".json?t=" + Date.now())).json(); } catch (e) { location.href = base; return; }
 const t = T[d.sektor] || T.guzellik;
 const digits = (d.telefon || "").replace(/[^0-9]/g, "").replace(/^0/, "90").replace(/^(?!90)/, "90");
 const mob = /^905/.test(digits);
