@@ -1,0 +1,18 @@
+{
+ "ad": "Uzman Oto Yağ Servis",
+ "sektor": "oto",
+ "ilce": "Gaziemir",
+ "telefon": "0535 635 61 82",
+ "puan": "4.7",
+ "yorum": "232",
+ "slogan": "Yağ değişimi ve periyodik bakımda Gaziemir'in güvendiği servis.",
+ "hizmetler": [
+  "Motor Yağı Değişimi",
+  "Filtre Değişimi",
+  "Periyodik Bakım",
+  "Fren Kontrolü",
+  "Antifriz & Sıvı Kontrolü",
+  "Akü Kontrolü"
+ ],
+ "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ4_M8d_bfuxQRyGj9iNM7_Og"
+}

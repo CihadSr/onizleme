@@ -1,0 +1,18 @@
+{
+ "ad": "Kebapçım Ali",
+ "sektor": "restoran",
+ "ilce": "Karşıyaka",
+ "telefon": "0552 179 85 79",
+ "puan": "4.6",
+ "yorum": "300",
+ "slogan": "Karşıyaka'nın sevilen kebapçısı. Menüye bakın, tek tıkla sipariş verin.",
+ "hizmetler": [
+  "Kebaplar",
+  "Dürümler",
+  "Izgaralar",
+  "Lahmacun & Pide",
+  "Tatlılar",
+  "Paket Servis"
+ ],
+ "maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJm-eoNj7ZuxQRFUfBYC5v69c"
+}
